@@ -10,8 +10,6 @@ decoded_text = ""
 
 plaintext_filtered = plaintext.replace(" ", "").lower()
 
-key = np.array(list("chaves"))
-
 keys_list = list(alphabet)
 
 while len(plaintext_filtered) >= 1:
