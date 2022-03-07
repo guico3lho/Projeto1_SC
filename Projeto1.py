@@ -1,3 +1,4 @@
+from pydoc import plain
 import string
 from assets import alphabet
 
@@ -9,14 +10,23 @@ from assets import alphabet
 
 # TODO: portugues tende a ter umas palavras maiores, começar o chute dessa forma
 
-plaintext = 'eugostodebanana' # input("Escreva o sua mensagem: ") # Eu gosto de banana
-key = 'chaves' # input("Insira a sua chave: ") # chaves
+plaintext = input("Escreva o sua mensagem: ") # Eu gosto de banana
+key = input("Insira a sua chave: ") # chaves
 
 cipher_text = ""
 decoded_text = ""
 
-# Retira espaços do plaintext
-plaintext_filtered = plaintext.replace(" ", "").lower() # eugostodebanana
+plaintext_filtered = plaintext 
+# filtrando espaços do plaintext
+
+plaintext_filtered = plaintext_filtered.replace(" ", "")
+# filtrando pontuações do plaintext
+for i in plaintext_filtered:
+  if i in string.punctuation:
+    plaintext_filtered = plaintext_filtered.replace(i,"")
+
+# converte para lower case
+plaintext_filtered = plaintext_filtered.lower() # eugostodebanana
 
 # cria uma lista contendo apenas as chaves de 'alphabet' -> {'a','b','c',...}
 keys_list = list(alphabet) 
@@ -51,7 +61,7 @@ print(cipher_text.upper())
 
 
 # Decifração
-while len(cipher_text) > 1: # length inicial é 15
+while len(cipher_text) >= 1: # length inicial é 15
     
     for i in range(len(key)): # 0 a 5 no caso de 'chaves'
     # Utilizando mapeamento na estrutura 'alphabet':
