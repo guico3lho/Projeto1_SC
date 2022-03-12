@@ -1,6 +1,7 @@
 from assets import desafio_1, desafio_1_teste, lf_english
 from functions_1 import filter
 import string
+from functions_1 import decryption
 
 
 ##### ABREVIAÇÕES IMPORTANTES PARA ENTENDER O CÓDIGO #####
@@ -8,19 +9,12 @@ import string
 # lf = letter frequency
 # dict = dictionary
 
-
 ############################################################
 
 
-# len(desafio_1) = 839
-
-# while len(desafio_1) >= 1:
-
-
 # RVGLLAKIEGTY - ciphertext without numbers and ponctuations
-desafio_1_filtered = filter(desafio_1).upper()
 
-print(desafio_1_filtered)
+desafio_1_filtered = filter(desafio_1).upper()
 
 key_size = 5  # size of the key used to decode
 
@@ -34,6 +28,7 @@ while iterator < key_size:
 
     dict_of_lf_ciphertext = dict.fromkeys(string.ascii_uppercase, 0)
     dict_of_lf_ciphertext_freq = dict.fromkeys(string.ascii_uppercase, 0)
+
     # percorre o ciphertext de ${key} em ${key} até o final. Faz isso para L1,L2,...,LN, sendo N = key_size
     for i in range(iterator, len(desafio_1_filtered), key_size):
         dict_of_lf_ciphertext_key = desafio_1_filtered[i]  # R, A, ...
@@ -60,18 +55,44 @@ while iterator < key_size:
         # print(letter, frequency, letter2, quantity)
         dict_of_lf_ciphertext_freq[letter] = frequency
 
-    # print(dict_of_lf_ciphertext_freq)
-    # dict_of_dicts_frequency[dict_of_dicts_frequency_key] =
     dict_of_dicts_frequency[dict_of_dicts_frequency_key] = dict_of_lf_ciphertext_freq
     dict_of_dicts[dict_of_dicts_key] = dict_of_lf_ciphertext
     iterator += 1
 
 
-# printa os dicionarios de frequencia para cada letra da chave desconhecida
-for letter_frequency_dict, letter_frequency_dict_freq in zip(dict_of_dicts.items(), dict_of_dicts_frequency.items()):
-    print("\nTable quantity", letter_frequency_dict)  # tuple
-    print("\nTable frequency", letter_frequency_dict_freq)
-
-# ordena o dict de lf em ingles
 lf_english = dict(sorted(lf_english.items()))
-# print(lf_english)
+
+
+# Criando o jogo para shiftar as frequencias
+key = ""
+operation = None
+
+for letter, table_frequency in dict_of_dicts_frequency.items():
+    # print(letter, table_frequency)
+    operation = None
+    while operation != 'quit':
+        print("------------" + letter +
+              " Table --------------\n", table_frequency)
+        print("\n")
+        print("------------ English Frequency Table ---------\n", lf_english)
+        print("Press S for shift || Press A for add the letter")
+        print("\n")
+        operation = input("Escolha a operação desejada:")
+
+        if(operation == 'A'):
+            # Adicionar letra a chave
+            key += next(iter(table_frequency))
+            print("Chave até o momento:", key)
+            operation = 'quit'
+
+        if(operation == 'S'):
+            # implementa o shift
+            key_to_be_deleted = next(iter(table_frequency))  # A
+            value_to_be_deleted = table_frequency[key_to_be_deleted]  # 0
+            # Deletou A do dicionario
+            del table_frequency[key_to_be_deleted]
+            # Adicionou A no final do dicionario
+            table_frequency[key_to_be_deleted] = value_to_be_deleted
+
+decoded_text = decryption(desafio_1_filtered.lower(), key)
+print("Texto decodificado:\n", decoded_text)
