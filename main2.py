@@ -1,7 +1,8 @@
-from assets import desafio_1, desafio_1_teste, lf_english
-from functions_1 import filter
+from assets import desafio_2, desafio_2, lf_portuguese, lf_english
+from functions_1 import filter_regex, decryption
 import string
-from functions_1 import decryption
+from functions_2 import coincidences_function
+import os
 
 
 ##### ABREVIAÇÕES IMPORTANTES PARA ENTENDER O CÓDIGO #####
@@ -11,12 +12,43 @@ from functions_1 import decryption
 
 ############################################################
 
+cipherText = input("Coloque o texto a ser decifrado:")
+os.system('cls' if os.name == 'nt' else 'clear')
 
+key_size = None
+
+filtered_cipher = filter_regex(cipherText)
+
+possibleKeySize = coincidences_function(filtered_cipher)
+
+
+print("-------------AVISO-------------")
+print("Lembrando que quanto maior o tamanho da chave e maior o número de ocorrências, maior a chance de ser o tamanho certo")
+print("-------------AVISO-------------")
+
+# options for the choosing key
+print(possibleKeySize)
+key_size = int(input("Escolha o tamanho de chave desejado:"))
+os.system('cls' if os.name == 'nt' else 'clear')
+print("EN (1)")
+print("PT-BR (2)")
+
+condition = True
+while condition:
+    lf_option = int(input(
+        "Escolha a lingua da tabela de frequencias a ser utilizada: "))
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if lf_option == 1:
+        lf = lf_english
+        condition = False
+    elif lf_option == 2:
+        lf = lf_portuguese
+        condition = False
+
+lf = lf_portuguese  # lingua selecionada
 # RVGLLAKIEGTY - ciphertext without numbers and ponctuations
+cipherText_filtered = filter_regex(cipherText).upper()
 
-desafio_1_filtered = filter(desafio_1).upper()
-
-key_size = 5  # size of the key used to decode
 
 dict_of_dicts = {}  # dictionary that holds ${iterator} dictionaries
 
@@ -30,8 +62,8 @@ while iterator < key_size:
     dict_of_lf_ciphertext_freq = dict.fromkeys(string.ascii_uppercase, 0)
 
     # percorre o ciphertext de ${key} em ${key} até o final. Faz isso para L1,L2,...,LN, sendo N = key_size
-    for i in range(iterator, len(desafio_1_filtered), key_size):
-        dict_of_lf_ciphertext_key = desafio_1_filtered[i]  # R, A, ...
+    for i in range(iterator, len(cipherText_filtered), key_size):
+        dict_of_lf_ciphertext_key = cipherText_filtered[i]  # R, A, ...
 
         # caso encontre a letra, aumenta a sua quantidade no dicionário
         dict_of_lf_ciphertext[dict_of_lf_ciphertext_key] = dict_of_lf_ciphertext.get(
@@ -60,29 +92,36 @@ while iterator < key_size:
     iterator += 1
 
 
-lf_english = dict(sorted(lf_english.items()))
+lf = dict(sorted(lf.items()))
 
 
 # Criando o jogo para shiftar as frequencias
 key = ""
 operation = None
-
+remain_letters_of_key = len(dict_of_dicts_frequency.items())
 for letter, table_frequency in dict_of_dicts_frequency.items():
+
     # print(letter, table_frequency)
     operation = None
     while operation != 'quit':
+        print("------------ English Frequency Table ---------\n", lf)
         print("------------" + letter +
               " Table --------------\n", table_frequency)
-        print("\n")
-        print("------------ English Frequency Table ---------\n", lf_english)
-        print("Press S for shift || Press A for add the letter")
-        print("\n")
+
+        print("\nAperte [S + Enter] para deslocar o dict " +
+              letter + " uma vez")
+        print("Aperte [A + Enter] para adicionar a letra mais a esquerda do dict " +
+              letter + " na chave")
+        print("Escreva \"quit\" para sair")
+        print("Falta escolher " + str(remain_letters_of_key) + " letras da chave\n")
         operation = input("Escolha a operação desejada:")
 
         if(operation == 'A'):
             # Adicionar letra a chave
             key += next(iter(table_frequency))
+            print("Letra adicionada:", next(iter(table_frequency)))
             print("Chave até o momento:", key)
+            remain_letters_of_key -= 1
             operation = 'quit'
 
         if(operation == 'S'):
@@ -94,5 +133,5 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
             # Adicionou A no final do dicionario
             table_frequency[key_to_be_deleted] = value_to_be_deleted
 
-decoded_text = decryption(desafio_1_filtered.lower(), key)
+decoded_text = decryption(cipherText_filtered.lower(), key)
 print("Texto decodificado:\n", decoded_text)
