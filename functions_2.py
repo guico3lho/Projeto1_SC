@@ -1,6 +1,7 @@
 def filter_dictionary(dictionary):
     filteredDictionary = {}
     for key, value in dictionary.items():
+      print(value)
       if len(value) > 2:
         filteredDictionary[key] = value
     return filteredDictionary
@@ -24,15 +25,15 @@ def gettingThePossibleKeyLength(dictionary):
     dictionaryOfPossibleKeyLength = {}
     for key in dictionaryListed:
         listOfValues = dictionary[key]
-        for n in range(20):
+        for possiblekeys in range(2, 20):
             for i in range(len(dictionary[key])):
                 try: 
                     delta = listOfValues[i] - listOfValues[i+1]
-                    if delta % n == 0:
-                        if dictionaryOfPossibleKeyLength.get(n):
-                            dictionaryOfPossibleKeyLength[n].append(i)
+                    if delta % possiblekeys == 0:
+                        if dictionaryOfPossibleKeyLength.get(possiblekeys):
+                            dictionaryOfPossibleKeyLength[possiblekeys].append(i)
                         else:
-                            dictionaryOfPossibleKeyLength[n] = [i]
+                            dictionaryOfPossibleKeyLength[possiblekeys] = [i]
                 except: 
                     break
     

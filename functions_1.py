@@ -40,8 +40,7 @@ def enctyption(plaintext_filtered, key):
             key_alphabet_value = alphabet.get(key[i])  # c -> 2
 
             # pegamos o valor da letra do plaintext
-            cipher_alphabet_value = (
-                plaintext_alphabet_value + key_alphabet_value) % 26  # 6
+            cipher_alphabet_value = (plaintext_alphabet_value + key_alphabet_value) % 26  # 6
 
             # utilizando a estrutura 'keys_list', pegamos a letra utilizando o valor obtido acima
             cipher_text = cipher_text + keys_list[cipher_alphabet_value]  # g
