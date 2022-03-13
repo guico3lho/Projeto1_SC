@@ -17,4 +17,23 @@ def coincidences_function(ciphertext):
         dictionaryWithTriagrams[valueTriagram] = [i]
          
     filtered_dictionary = filter_dictionary(dictionaryWithTriagrams)
-    print(filtered_dictionary)
+    gettingThePossibleKeyLength(filtered_dictionary)
+
+def gettingThePossibleKeyLength(dictionary):
+    dictionaryListed = list(dictionary)
+    dictionaryOfPossibleKeyLength = {}
+    for key in dictionaryListed:
+        listOfValues = dictionary[key]
+        for n in range(20):
+            for i in range(len(dictionary[key])):
+                try: 
+                    delta = listOfValues[i] - listOfValues[i+1]
+                    if delta % n == 0:
+                        if dictionaryOfPossibleKeyLength.get(n):
+                            dictionaryOfPossibleKeyLength[n].append(i)
+                        else:
+                            dictionaryOfPossibleKeyLength[n] = [i]
+                except: 
+                    break
+    
+    print(filter_dictionary(dictionaryOfPossibleKeyLength))
