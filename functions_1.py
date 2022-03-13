@@ -46,7 +46,7 @@ def enctyption(plaintext_filtered, key):
             # utilizando a estrutura 'keys_list', pegamos a letra utilizando o valor obtido acima
             cipher_text = cipher_text + keys_list[cipher_alphabet_value]  # g
 
-            # retira a primeira letra do plaintext pois foi cifrada
+            # retira a primeira letra do plaintext pois já foi cifrada
             plaintext_filtered = plaintext_filtered[1:]
 
             # se não tiver mais nenhum letra do plaintext para cifrar, sai do loop
@@ -79,7 +79,7 @@ def decryption(cipher_text, key):
             # Retira a primeira letra do ciphertext pois foi decifrada
             cipher_text = cipher_text[1:]
 
-            # se não tiver mais nenhuma letra do ciphertext para cifrar, sai do loop
+            # se não tiver mais nenhuma letra do ciphertext para decifrar, sai do loop
             if (len(cipher_text)) == 0:
                 break
     return decoded_text
