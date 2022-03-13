@@ -16,7 +16,6 @@ def filter_dictionary2(dictionary, mean):
 
 
 def coincidences_function(ciphertext):
-
     # procura os trios que se repetem
     dictionaryWithTriagrams = {}
     for i in range(len(ciphertext)):
@@ -34,7 +33,6 @@ def coincidences_function(ciphertext):
     filtered_dictionary = filter_dictionary(dictionaryWithTriagrams)
     return gettingThePossibleKeyLength(filtered_dictionary)
 
-
 def gettingThePossibleKeyLength(dictionary):
     dictionaryListed = list(dictionary)  # ['exi', 'ttg', 'acw']
     dictionaryOfPossibleKeyLength = {}
@@ -46,9 +44,7 @@ def gettingThePossibleKeyLength(dictionary):
         for possiblekeys in range(3, 21):  # 2 a 19
             for i in range(len(dictionary[key])):  # 3
                 try:
-
                     spacing = listOfValues[i] - listOfValues[i+1]  # 752 - 6
-
                     # chance de estar certo aqui
                     if spacing % possiblekeys == 0:  # possui x no spacing
                         # { 2: [0,1] }
@@ -57,7 +53,6 @@ def gettingThePossibleKeyLength(dictionary):
                                 i)
                             novoDicionario[possiblekeys] = len(
                                 dictionaryOfPossibleKeyLength[possiblekeys])
-
                         else:
                             dictionaryOfPossibleKeyLength[possiblekeys] = [
                                 i]  # {2: [0]}

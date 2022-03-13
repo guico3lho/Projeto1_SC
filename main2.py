@@ -1,4 +1,4 @@
-from assets import desafio_2, desafio_2, lf_portuguese, lf_english
+from assets import lf_portuguese, lf_english
 from functions_1 import filter_regex, decryption
 import string
 from functions_2 import coincidences_function
@@ -15,18 +15,16 @@ import os
 cipherText = input("Coloque o texto a ser decifrado:")
 os.system('cls' if os.name == 'nt' else 'clear')
 
-key_size = None
+# filtered_cipher = filter_regex(cipherText)
+cipherText_filtered = filter_regex(cipherText).upper()
 
-filtered_cipher = filter_regex(cipherText)
-
-possibleKeySize = coincidences_function(filtered_cipher)
-
+possibleKeySize = coincidences_function(cipherText_filtered)
 
 print("-------------AVISO-------------")
 print("Lembrando que quanto maior o tamanho da chave e maior o número de ocorrências, maior a chance de ser o tamanho certo")
 print("-------------AVISO-------------")
 
-# options for the choosing key
+#Mostramos quais são as chaves mais provaveis 
 print(possibleKeySize)
 key_size = int(input("Escolha o tamanho de chave desejado:"))
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -37,7 +35,6 @@ condition = True
 while condition:
     lf_option = int(input(
         "Escolha a lingua da tabela de frequencias a ser utilizada: "))
-    os.system('cls' if os.name == 'nt' else 'clear')
     if lf_option == 1:
         lf = lf_english
         condition = False
@@ -45,15 +42,13 @@ while condition:
         lf = lf_portuguese
         condition = False
 
-lf = lf_portuguese  # lingua selecionada
-# RVGLLAKIEGTY - ciphertext without numbers and ponctuations
-cipherText_filtered = filter_regex(cipherText).upper()
+os.system('cls' if os.name == 'nt' else 'clear')
 
+print(lf)
 
 dict_of_dicts = {}  # dictionary that holds ${iterator} dictionaries
 
 dict_of_dicts_frequency = {}
-
 
 iterator = 0  # iterator to pick frequency of letters
 while iterator < key_size:
@@ -91,9 +86,7 @@ while iterator < key_size:
     dict_of_dicts[dict_of_dicts_key] = dict_of_lf_ciphertext
     iterator += 1
 
-
 lf = dict(sorted(lf.items()))
-
 
 # Criando o jogo para shiftar as frequencias
 key = ""
@@ -115,6 +108,7 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
         print("Escreva \"quit\" para sair")
         print("Falta escolher " + str(remain_letters_of_key) + " letras da chave\n")
         operation = input("Escolha a operação desejada:")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         if(operation == 'A'):
             # Adicionar letra a chave
