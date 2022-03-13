@@ -44,8 +44,6 @@ while condition:
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-print(lf)
-
 dict_of_dicts = {}  # dictionary that holds ${iterator} dictionaries
 
 dict_of_dicts_frequency = {}
