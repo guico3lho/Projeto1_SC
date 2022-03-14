@@ -1,27 +1,8 @@
 from assets import alphabet
-import string
 import re
-
 
 # cria uma lista contendo apenas as chaves de 'alphabet' -> {'a','b','c',...}
 keys_list = list(alphabet)
-
-
-def filter(plaintext):
-    plaintext_filtered = plaintext
-    # filtrando espaços do plaintext
-    plaintext_filtered = plaintext_filtered.replace(" ", "")
-
-    # filtrando pontuações do plaintext
-    for i in plaintext_filtered:
-        if i in string.punctuation:
-            plaintext_filtered = plaintext_filtered.replace(i, "")
-        if i in string.digits:
-            plaintext_filtered = plaintext_filtered.replace(i, "")
-    # converte para lower case
-    plaintext_filtered = plaintext_filtered.lower()  # eugostodebanana
-
-    return plaintext_filtered
 
 
 def filter_regex(plaintext):

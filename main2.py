@@ -96,7 +96,6 @@ operation = None
 remain_letters_of_key = len(dict_of_dicts_frequency.items())
 for letter, table_frequency in dict_of_dicts_frequency.items():
 
-    # print(letter, table_frequency)
     operation = None
     while operation != 'quit':
         if(lf == lf_english):
@@ -125,7 +124,7 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
             operation = 'quit'
 
         if(operation == 'S'):
-            # implementa o shift
+            # Implementa o shift
             key_to_be_deleted = next(iter(table_frequency))  # A
             value_to_be_deleted = table_frequency[key_to_be_deleted]  # 0
             # Deletou A do dicionario
