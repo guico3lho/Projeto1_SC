@@ -15,7 +15,6 @@ import os
 cipherText = input("Coloque o texto a ser decifrado:")
 os.system('cls' if os.name == 'nt' else 'clear')
 
-# filtered_cipher = filter_regex(cipherText)
 cipherText_filtered = filter_regex(cipherText).upper()
 
 possibleKeySize = coincidences_function(cipherText_filtered)
@@ -48,17 +47,20 @@ cipherText_filtered = filter_regex(cipherText).upper()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-dict_of_dicts = {}  # dictionary that holds ${iterator} dictionaries
+# dictionary that holds ${key_size} dictionaries
+dict_of_dicts = {}
 
+# dictionary that holds the same of dict_of_dicts, but values as frequency
 dict_of_dicts_frequency = {}
 
-iterator = 0  # iterator to pick frequency of letters
+# iterator to pick frequency of letters
+iterator = 0
 while iterator < key_size:
-
+    # inicializa dicionarios de alfabeto com valores zerados
     dict_of_lf_ciphertext = dict.fromkeys(string.ascii_uppercase, 0)
     dict_of_lf_ciphertext_freq = dict.fromkeys(string.ascii_uppercase, 0)
 
-    # percorre o ciphertext de ${key} em ${key} até o final. Faz isso para L1,L2,...,LN, sendo N = key_size
+    # percorre o ciphertext de ${key_size} em ${key_size} até o final. Faz isso para L1,L2,...,LN, sendo N = key_size
     for i in range(iterator, len(cipherText_filtered), key_size):
         dict_of_lf_ciphertext_key = cipherText_filtered[i]  # R, A, ...
 
@@ -134,5 +136,5 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
             print("Chave até o momento:", key)
 
 decoded_text = decryption(cipherText_filtered.lower(), key)
-print("Texto decodificado:\n", decoded_text)
-print("Caso o texto tenha sido decodificado errado, experimente utilizar um outro tamanho de chave")
+print("\nTexto decodificado:\n", decoded_text)
+print("\nCaso o texto tenha sido decodificado errado, experimente utilizar um outro tamanho de chave")
