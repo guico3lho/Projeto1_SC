@@ -1,4 +1,3 @@
-
 def filter_dictionary(dictionary):
     filteredDictionary = {}
     for key, value in dictionary.items():
@@ -6,14 +5,12 @@ def filter_dictionary(dictionary):
             filteredDictionary[key] = value
     return filteredDictionary
 
-
 def filter_dictionary2(dictionary, mean):
     filteredDictionary = {}
     for key, value in dictionary.items():
         if value > mean:
             filteredDictionary[key] = value
     return filteredDictionary
-
 
 def coincidences_function(ciphertext):
     # procura os trios que se repetem

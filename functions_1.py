@@ -66,7 +66,6 @@ def decryption(cipher_text, key):
     decoded_text = ""
     key = key.lower()
     while len(cipher_text) >= 1:  # length inicial é 15
-
         for i in range(len(key)):  # 0 a 5 no caso de 'chaves'
             # Utilizando mapeamento na estrutura 'alphabet':
 
