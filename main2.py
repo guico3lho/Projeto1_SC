@@ -23,12 +23,13 @@ possibleKeySize = coincidences_function(filtered_cipher)
 
 
 print("-------------AVISO-------------")
-print("Lembrando que quanto maior o tamanho da chave e maior o número de ocorrências, maior a chance de ser o tamanho certo")
+print("Lembrando que quanto maior o tamanho da chave e maior o número de ocorrências no dicionário abaixo, maior a chance de ser o tamanho certo")
 print("-------------AVISO-------------")
 
 # options for the choosing key
 print(possibleKeySize)
-key_size = int(input("Escolha o tamanho de chave desejado:"))
+key_size = int(
+    input("Escolha o tamanho de chave desejado com base no dicionário acima:"))
 os.system('cls' if os.name == 'nt' else 'clear')
 print("EN (1)")
 print("PT-BR (2)")
@@ -45,7 +46,6 @@ while condition:
         lf = lf_portuguese
         condition = False
 
-lf = lf_portuguese  # lingua selecionada
 # RVGLLAKIEGTY - ciphertext without numbers and ponctuations
 cipherText_filtered = filter_regex(cipherText).upper()
 
@@ -84,7 +84,7 @@ while iterator < key_size:
 
     for (letter, frequency), (letter2, quantity) in zip(dict_of_lf_ciphertext_freq.items(), dict_of_lf_ciphertext.items()):
         frequency = round(quantity*100/total, 2)
-        # print(letter, frequency, letter2, quantity)
+
         dict_of_lf_ciphertext_freq[letter] = frequency
 
     dict_of_dicts_frequency[dict_of_dicts_frequency_key] = dict_of_lf_ciphertext_freq
@@ -104,7 +104,11 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
     # print(letter, table_frequency)
     operation = None
     while operation != 'quit':
-        print("------------ English Frequency Table ---------\n", lf)
+        if(lf == lf_english):
+            print("------------ English Frequency Table ---------\n", lf)
+        if(lf == lf_portuguese):
+            print("------------ Portuguese Frequency Table ---------\n", lf)
+
         print("------------" + letter +
               " Table --------------\n", table_frequency)
 
@@ -132,6 +136,8 @@ for letter, table_frequency in dict_of_dicts_frequency.items():
             del table_frequency[key_to_be_deleted]
             # Adicionou A no final do dicionario
             table_frequency[key_to_be_deleted] = value_to_be_deleted
+            print("Chave até o momento:", key)
 
 decoded_text = decryption(cipherText_filtered.lower(), key)
 print("Texto decodificado:\n", decoded_text)
+print("Caso o texto tenha sido decodificado errado, experimente utilizar um outro tamanho de chave")
